@@ -1,6 +1,10 @@
-import { confirmResult, readFile, splitOnNewLine, sumArray } from "../utils.js";
-
-// Common
+import {
+  confirmResult,
+  confirmTestResult,
+  readFile,
+  splitOnNewLine,
+  sumArray,
+} from "../utils.js";
 
 const input = readFile("./1/input.txt");
 
@@ -47,12 +51,9 @@ treb7uchet`;
 
 let regex = new RegExp(/^.*?(\d).*(\d)|(\d)/g);
 
-// Functions
-
 let calibrationValues = getCalibrationValues(splitOnNewLine(test), regex);
 let sum = sumArray(calibrationValues);
-
-confirmResult(142, sum);
+confirmTestResult(142, sum);
 
 calibrationValues = getCalibrationValues(input, regex);
 sum = sumArray(calibrationValues);
@@ -71,14 +72,10 @@ zoneight234
 const captureGroup = "(zero|one|two|three|four|five|six|seven|eight|nine|\\d)";
 regex = new RegExp(`^.*?${captureGroup}.*${captureGroup}.*|(\\d)`, "gm");
 
-// Functions
-
 calibrationValues = getCalibrationValues(splitOnNewLine(test), regex);
 sum = sumArray(calibrationValues);
-
-confirmResult(281, sum);
+confirmTestResult(281, sum);
 
 calibrationValues = getCalibrationValues(input, regex);
 sum = sumArray(calibrationValues);
-
 confirmResult(53515, sum);

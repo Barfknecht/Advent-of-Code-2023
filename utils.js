@@ -8,6 +8,13 @@ const sumArray = (array) =>
   array.reduce((partialSum, item) => partialSum + Number(item), 0);
 
 const confirmResult = (expected, value) =>
-  console.log(`Test: ${value} equals ${expected}. ${value === expected}`);
+  console.log(
+    `### Actual: ${value} equals ${expected}. ${value === expected} ###`
+  );
 
-export { confirmResult, readFile, splitOnNewLine, sumArray };
+const confirmTestResult = (expected, value) =>
+  console.log(
+    `### Test: ${value} equals ${expected}. ${value === expected} ###`
+  );
+
+export { confirmResult, confirmTestResult, readFile, splitOnNewLine, sumArray };
