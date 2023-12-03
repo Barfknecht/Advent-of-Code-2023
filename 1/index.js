@@ -32,10 +32,7 @@ const mapToNumber = (digit) => {
 const getCalibrationValues = (document, regex) =>
   document.map((line) => {
     const [matches] = [...line.matchAll(regex)];
-    if (!matches) console.error(line);
     const [_, group1, group2, group3, ...__] = matches;
-    if (group1 === undefined && group2 === undefined && group3 === undefined)
-      console.error(line);
     return group3
       ? `${mapToNumber(group3)}${mapToNumber(group3)}`
       : `${mapToNumber(group1)}${mapToNumber(group2)}`;
