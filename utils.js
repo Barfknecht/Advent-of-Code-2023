@@ -12,6 +12,8 @@ const difference = (arrA, arrB) =>
 
 const readFile = (file) => fs.readFileSync(file, "utf-8");
 
+const randomNumber = (max) => Math.floor(Math.random() * max);
+
 const readFileAndSplit = (file) =>
   readFile(file)
     .split("\n")
@@ -40,6 +42,7 @@ export {
   difference,
   distinct,
   intersection,
+  randomNumber,
   readFile,
   readFileAndSplit,
   sleep,
