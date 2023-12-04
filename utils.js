@@ -1,6 +1,21 @@
 import fs from "fs";
 
-const readFile = (file) => fs.readFileSync(file, "utf-8").split("\n");
+const stripNewLine = (input) => input.replace(/\r?\n|\r/g, "");
+
+const distinct = (value, index, self) => self.indexOf(value) === index;
+
+const intersection = (arrA, arrB) =>
+  arrA.filter((element) => arrB.includes(element));
+
+const difference = (arrA, arrB) =>
+  arrA.filter((element) => !arrB.includes(element));
+
+const readFile = (file) => fs.readFileSync(file, "utf-8");
+
+const readFileAndSplit = (file) =>
+  readFile(file)
+    .split("\n")
+    .map((line) => line.trimEnd());
 
 const splitOnNewLine = (input) => input.split("\n");
 
@@ -17,4 +32,18 @@ const confirmTestResult = (expected, value) =>
     `### Test: ${value} equals ${expected}. ${value === expected} ###`
   );
 
-export { confirmResult, confirmTestResult, readFile, splitOnNewLine, sumArray };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+export {
+  confirmResult,
+  confirmTestResult,
+  difference,
+  distinct,
+  intersection,
+  readFile,
+  readFileAndSplit,
+  sleep,
+  splitOnNewLine,
+  stripNewLine,
+  sumArray,
+};
