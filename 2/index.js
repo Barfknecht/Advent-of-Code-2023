@@ -3,17 +3,17 @@ import { max } from "mathjs";
 import {
   confirmResult,
   confirmTestResult,
-  readFile,
-  splitOnNewLine,
+  readFileAndSplit,
   sumArray,
 } from "../utils.js";
 
-const input = readFile("./2/input.txt");
-const regex = /(?<number>\d+) (?<colour>blue|red|green)/g;
-const trimGame = (line) => line.replace(/Game \d+:/, "").trim();
+const input = readFileAndSplit("./2/input.txt");
+const inputTest = readFileAndSplit("./2/input_test.txt");
 
-const prepareGames = (input) =>
-  input.map(trimGame).map((game) =>
+const prepareGames = (input) => {
+  const trimGame = (line) => line.replace(/Game \d+:/, "").trim();
+  const regex = /(?<number>\d+)\s(?<colour>blue|red|green)/g;
+  return input.map(trimGame).map((game) =>
     [...game.matchAll(regex)].map(({ groups }) => {
       return {
         colour: groups.colour,
@@ -21,12 +21,7 @@ const prepareGames = (input) =>
       };
     })
   );
-
-const test = `Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
-  Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
-  Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
-  Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
-  Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green`;
+};
 
 // Part One
 
@@ -44,12 +39,12 @@ const revealIsValid = ({ colour, number }) => {
 const getValidGameIds = (games) =>
   games.map((reveal, index) => (reveal.every(revealIsValid) ? index + 1 : 0));
 
-const testGames = prepareGames(splitOnNewLine(test));
-let validGameIds = getValidGameIds(testGames);
+let games = prepareGames(inputTest);
+let validGameIds = getValidGameIds(games);
 let sum = sumArray(validGameIds);
 confirmTestResult(8, sum);
 
-const games = prepareGames(input);
+games = prepareGames(input);
 validGameIds = getValidGameIds(games);
 sum = sumArray(validGameIds);
 confirmResult(2268, sum);
@@ -70,10 +65,12 @@ const getCubePowers = (games) =>
     })
     .map(power);
 
-let cubePowers = getCubePowers(testGames);
+games = prepareGames(inputTest);
+let cubePowers = getCubePowers(games);
 sum = sumArray(cubePowers);
 confirmTestResult(2286, sum);
 
+games = prepareGames(input);
 cubePowers = getCubePowers(games);
 sum = sumArray(cubePowers);
 confirmResult(63542, sum);

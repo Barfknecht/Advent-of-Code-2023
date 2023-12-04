@@ -1,12 +1,13 @@
 import {
   confirmResult,
   confirmTestResult,
-  readFile,
-  splitOnNewLine,
+  readFileAndSplit,
   sumArray,
 } from "../utils.js";
 
-const input = readFile("./1/input.txt");
+const input = readFileAndSplit("./1/input.txt");
+const test1Input = readFileAndSplit("./1/test_1_input.txt");
+const test2Input = readFileAndSplit("./1/test_2_input.txt");
 
 const mapToNumber = (digit) => {
   switch (digit) {
@@ -44,14 +45,9 @@ const getCalibrationValues = (document, regex) =>
 
 // Part One
 
-let test = `1abc2
-pqr3stu8vwx
-a1b2c3d4e5f
-treb7uchet`;
+let regex = /^.*?(\d).*(\d)|(\d)/g;
 
-let regex = new RegExp(/^.*?(\d).*(\d)|(\d)/g);
-
-let calibrationValues = getCalibrationValues(splitOnNewLine(test), regex);
+let calibrationValues = getCalibrationValues(test1Input, regex);
 let sum = sumArray(calibrationValues);
 confirmTestResult(142, sum);
 
@@ -61,18 +57,10 @@ confirmResult(54388, sum);
 
 // Part Two
 
-test = `two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen`;
-
 const captureGroup = "(zero|one|two|three|four|five|six|seven|eight|nine|\\d)";
 regex = new RegExp(`^.*?${captureGroup}.*${captureGroup}.*|(\\d)`, "gm");
 
-calibrationValues = getCalibrationValues(splitOnNewLine(test), regex);
+calibrationValues = getCalibrationValues(test2Input, regex);
 sum = sumArray(calibrationValues);
 confirmTestResult(281, sum);
 
