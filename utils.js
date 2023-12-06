@@ -10,6 +10,8 @@ const intersection = (arrA, arrB) =>
 const difference = (arrA, arrB) =>
   arrA.filter((element) => !arrB.includes(element));
 
+const union = (arrA, arrB) => [...new Set([...arrA, ...arrB])];
+
 const readFile = (file) => fs.readFileSync(file, "utf-8");
 
 const randomNumber = (max) => Math.floor(Math.random() * max);
@@ -36,7 +38,15 @@ const confirmTestResult = (expected, value) =>
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+const arrayFill = (start, numberOfItems) =>
+  Array.from({ length: numberOfItems }, (_, i) => i + start);
+
+const arrayRange = (start, end) =>
+  Array.from({ length: end - start + 1 }, (_, i) => i + start);
+
 export {
+  arrayFill,
+  arrayRange,
   confirmResult,
   confirmTestResult,
   difference,
@@ -49,4 +59,5 @@ export {
   splitOnNewLine,
   stripNewLine,
   sumArray,
+  union,
 };
